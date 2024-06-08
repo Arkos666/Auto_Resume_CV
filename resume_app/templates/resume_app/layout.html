@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Currículum Vitae</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <span class="navbar-brand">
+                CV de David Garries - {{ actual_tag }}
+            </span>
+            <span class="navbar-text">
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="job" data-bs-toggle="dropdown" aria-expanded="false">
+                    Puesto de trabajo
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="job">
+                    {% for tagjob in tagsjob %}
+                      <li><button class="dropdown-item" type="button" onclick="MyFunction('{{ tagjob.tag }}')">{{ tagjob.tag }}</button></li>
+                    {% endfor %}
+                  </ul>
+                </div>
+            </span>
+        </div>
+    </nav>
+
+    <form id="msform" action="index.html" method="post">
+        {% csrf_token %}
+        <input id="tag" name="tag" type="hidden">
+    </form>
+
+
+    {% block body %}
+    {% endblock %}
+
+    <script>
+        function MyFunction(tag){
+            var lat = document.getElementById("tag");
+            lat.value = tag;
+            var oForm = document.getElementById("msform");
+            oForm.submit();
+            return false;
+        }
+
+    </script>
+
+</body>
+</html>

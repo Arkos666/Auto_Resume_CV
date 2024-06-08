@@ -1,0 +1,34 @@
+{% extends "resume_app/layout.html" %}
+
+{% block body %}
+<h1 xmlns="http://www.w3.org/1999/html">Currículum Vitae</h1>
+  <form action ="{% url 'index' %}" method="post">
+    {% csrf_token %}
+
+    <div class="experience">
+    {% for company in companies %}
+        <div class="company"><h1>{{ company.company }} </h1></div>
+        {% if positions %}
+        {% for position in positions %}
+          {% if company == position.company %}
+            <div></div>
+            <div class="position">
+              <h3>{{ position.position }}</h3>
+                {% if actions %}
+                {% for action in actions %}
+                  {% if position == action.position %}
+                  <div class="action">
+                  {{ action.action }}
+                  </div>
+                  {% endif %}
+                {% endfor %}
+                {% endif %}
+            </div>
+          {% endif %}
+       {% endfor %}
+       {% endif %}
+    {% endfor %}
+    </div>
+      <div></div>
+  </form>
+{% endblock %}
